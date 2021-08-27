@@ -3,16 +3,16 @@ const firstNames = require("./data/firstNames");
 const howDidYouObtainThisEvidence = require("./answer_generator/howDidYouObtainThisEvidence");
 const story = require("./answer_generator/story");
 const clinic = require("./answer_generator/clinic");
-const { sample } = require("./helpers");
+const { sample, typofy } = require("./helpers");
 
 const browserExecution = require("./execution_methods/browser");
 
 (async () => {
   const location = sample(zip_codes);
   const firstName = sample(firstNames);
-  const fakeStory = story(firstName);
-  const fakeEvidence = howDidYouObtainThisEvidence(firstName);
-  const fakeClinic = clinic();
+  const fakeStory = typofy(story(firstName));
+  const fakeEvidence = typofy(howDidYouObtainThisEvidence(firstName));
+  const fakeClinic = typofy(clinic());
   const state = sample(["Texas", "TX", "Tx", "Texas (TX)", "Texas US"]);
 
   const method = process.argv[2];

@@ -1,5 +1,5 @@
 # about
-This is a script that will bogus tips to prolifewhistleblower.com, a Texan anonymous tip line for reporting abortions. Hopefully these fake tips make the system useless.
+This is a script that will create bogus tips to prolifewhistleblower.com, a Texan anonymous tip line for reporting abortions. Hopefully these fake tips help make the system useless.
 
 # usage
 Insall dependencies

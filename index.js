@@ -1,108 +1,65 @@
-const puppeteer = require("puppeteer");
-const readline = require("readline");
 const zip_codes = require("./data/zip_codes");
 const firstNames = require("./data/firstNames");
 const howDidYouObtainThisEvidence = require("./answer_generator/howDidYouObtainThisEvidence");
 const story = require("./answer_generator/story");
 const clinic = require("./answer_generator/clinic");
-const {
-	sample,
-	delay
-} = require("./helpers");
+const { sample } = require("./helpers");
+
+const browserExecution = require("./execution_methods/browser");
 
 (async () => {
-	console.log("Navigating to website...");
-	const browser = await puppeteer.launch({
-		headless: false
-	});
-	const page = await browser.newPage();
-	await page.goto("https://prolifewhistleblower.com/anonymous-form/");
+  const location = sample(zip_codes);
+  const firstName = sample(firstNames);
+  const fakeStory = story(firstName);
+  const fakeEvidence = howDidYouObtainThisEvidence(firstName);
+  const fakeClinic = clinic();
+  const state = sample(["Texas", "TX", "Tx", "Texas (TX)", "Texas US"]);
 
-	const location = sample(zip_codes);
-	const firstName = sample(firstNames);
+  const method = process.argv[2];
+  switch (String(method).toLowerCase()) {
+    case "text":
+      console.log(`
+	Auto-Generated Story:
+	Copy and Paste it into the form!
 
-	console.log("Generating story for", firstName, location);
+- How do you think the law was violated? -
 
-	// wait for the website to load
-	await delay(2000);
+	${fakeStory}
 
+- How did you obtain this evidence? -
 
-	// how do you think the law was violated?
-	await page.$eval(
-		"#forminator-field-textarea-1",
-		(el, v) => {
-			el.value = v;
-		},
-		story(firstName)
-	);
-	// how did you obtain this evidence?
-	await page.$eval(
-		"#forminator-field-text-1",
-		(el, v) => {
-			el.value = v;
-		},
-		howDidYouObtainThisEvidence(firstName)
-	);
-	// clinic this relates to
-	await page.$eval(
-		"#forminator-field-text-6",
-		(el, v) => {
-			el.value = v;
-		},
-		clinic()
-	);
-	// city
-	await page.$eval(
-		"#forminator-field-text-2",
-		(el, v) => {
-			el.value = v;
-		},
-		location.city
-	);
-	// state
-	await page.$eval(
-		"#forminator-field-text-3",
-		(el, v) => {
-			el.value = v;
-		},
-		sample(["Texas", "TX", "Tx", "Texas (TX)", "Texas US"])
-	);
-	// zip
-	await page.$eval(
-		"#forminator-field-text-4",
-		(el, v) => {
-			el.value = v;
-		},
-		location.zip
-	);
-	// county
-	await page.$eval(
-		"#forminator-field-text-5",
-		(el, v) => {
-			el.value = v;
-		},
-		location.county
-	);
+	${fakeEvidence}
 
-	await page.evaluate(() => {
-		document.querySelectorAll('input[type="checkbox"]')[1].parentElement.click();
-	});
+- Clinic or Doctor this evidence relates to -
 
-	console.log("Inputs filled!")
-	const rl = readline.createInterface({
-		input: process.stdin,
-		output: process.stdout,
-	});
-	rl.question(
-		"Please complete the ReCaptcha. When ready, press ENTER, or submit the form yourself.\n> ",
-		async function () {
-			console.log("submitting...");
+	${fakeClinic}
 
-			const searchButtonNodeSelector = ".forminator-button-submit";
-			await page.click(searchButtonNodeSelector);
+- City -
 
-			console.log("Done!");
-			await browser.close();
-		}
-	);
+	${location.city}
+
+- State -
+
+	${state}
+
+- Zip -
+
+	${location.zip}
+
+- County -
+
+	${location.county}
+			`);
+      break;
+    default:
+      console.log("No execution method provided. Defaulting to browser.");
+      await browserExecution({
+        location,
+        firstName,
+        fakeStory,
+        fakeEvidence,
+        fakeClinic,
+        state,
+      });
+  }
 })();

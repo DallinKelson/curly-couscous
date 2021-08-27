@@ -28,7 +28,9 @@ node . text
 ```
 
 # Modifying the dataset
-All data is generated and pulled from `./data` and `./answer_generator` and is easily modifiable. Feel free to open a PR with new data.
+Modifying the dataset is crucial. It is technically very easy for the website maintainers to find the template answers published here and clean it from their database.
+Therefore it's recommended that upon cloning this repo for usage, you replace the existing template answers with your own answers.
+All data is generated and pulled from `./answer_generator` and is easily modifiable.
 
 # contributing
 Feel free to contribute by adding more fake answers and improving the execution of the script.

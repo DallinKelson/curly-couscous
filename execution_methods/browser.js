@@ -27,7 +27,9 @@ module.exports = async (
 	console.log("Generating story for", firstName, location);
 
 	// wait for the website to load
-	await delay(2000);
+	console.log("Waiting for form to appear...");
+	await page
+		.waitForSelector('#forminator-field-textarea-1', { timeout: 20000 })
 
 
 	// how do you think the law was violated?

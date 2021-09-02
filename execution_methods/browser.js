@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const readline = require("readline")
 const { delay } = require("../helpers");
+const randomUseragent = require("random-useragent");
 
 module.exports = async (
 	{
@@ -18,6 +19,9 @@ module.exports = async (
 		headless: false
 	});
 	const page = await browser.newPage();
+	const agent = randomUseragent.getRandom((ua) => ua.browserName == "Chrome" && parseFloat(ua.browserVersion) >= 55);
+
+	await page.setUserAgent(agent);
 	await page.goto("https://prolifewhistleblower.com/anonymous-form/");
 
 	console.log("Generating story for", firstName, location);

@@ -1,6 +1,4 @@
 const puppeteer = require("puppeteer");
-const readline = require("readline")
-const { delay } = require("../helpers");
 const randomUseragent = require("random-useragent");
 
 module.exports = async (
@@ -94,20 +92,7 @@ module.exports = async (
 	});
 
 	console.log("Inputs filled!")
-	const rl = readline.createInterface({
-		input: process.stdin,
-		output: process.stdout,
-	});
-	rl.question(
-		"Please complete the ReCaptcha. When ready, press ENTER, or submit the form yourself.\n> ",
-		async function () {
-			console.log("submitting...");
+	console.log("Please complete the ReCaptcha, and submit when ready!");
 
-			const searchButtonNodeSelector = ".forminator-button-submit";
-			await page.click(searchButtonNodeSelector);
-
-			console.log("Done!");
-			await browser.close();
-		}
-	);
+	process.exit(1);
 }

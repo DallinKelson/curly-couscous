@@ -3,7 +3,7 @@ This is a script that will create bogus tips to prolifewhistleblower.com, a Texa
 
 This script has been used to create the app [ProLife Buster](https://prolifebuster.herokuapp.com/) which allows users to supply bogus stories which will be automatically spammed.
 
-**NOTICE:** As of Sep 2, 2021, there is an ongoing issue where [the form](https://prolifebuster.herokuapp.com/) is not consistently loading for many people. Subsequently, if the the form does not load for you, the script will fail, as it cannot find the form. We are not sure if this issue is because the form has been taken down permanently or because they are overwhelmed/in maintaince, only time will tell.
+**NOTICE:** As of Sep 2, 2021, there is an ongoing issue where [the form](https://prolifewhistleblower.com/anonymous-form/) is not consistently loading for many people. Subsequently, if the the form does not load for you, the script will fail, as it cannot find the form. We are not sure if this issue is because the form has been taken down permanently or because they are overwhelmed/in maintaince, only time will tell.
 
 # Installation
 Install Node.js and NPM from [nodejs.org](https://nodejs.org)

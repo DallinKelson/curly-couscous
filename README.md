@@ -2,7 +2,7 @@
 This is a script that will create bogus tips to prolifewhistleblower.com, a Texan anonymous tip line for reporting abortions. Hopefully these fake tips help make the system useless.
 
 # Installation
-Insall dependencies
+Install dependencies
 ```sh
 npm install
 ```

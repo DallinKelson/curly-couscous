@@ -93,6 +93,4 @@ module.exports = async (
 
 	console.log("Inputs filled!")
 	console.log("Please complete the ReCaptcha, and submit when ready!");
-
-	process.exit(1);
 }
